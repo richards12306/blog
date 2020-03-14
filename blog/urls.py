@@ -10,5 +10,4 @@ urlpatterns = [
     path('date/<int:year>/<int:month>',
          views.blog_with_date,
          name="blog_with_date"),
-    # path('asdfasfdafads')
 ]
