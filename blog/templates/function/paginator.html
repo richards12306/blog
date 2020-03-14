@@ -1,0 +1,51 @@
+{% comment %} 需要 blockPages {% endcomment %}
+ <div class = "paginator">
+      <ul class="pagination">
+          <li>
+            {%if blog_pages.has_previous%}
+                <a href="?page = {{blog_pages.previous_page_number}}" aria-label="Previous"> 
+                <span aria-hidden="true">&laquo;</span>
+                </a>
+            {%else%}
+                  <span aria-hidden="true">&laquo;</span>
+            {%endif%}
+                  {%block paginator%}
+                  {%endblock%}
+          </li>
+
+        {% for page in blog_pages.pages%} 
+          {%if page%}
+            {% ifequal page blog_pages.number %}
+              {% comment %} <span class="active">{{ page }}</span> {% endcomment %}
+              <li class="active" >  <span>{{page}}
+                </span>   
+              </li>
+            {% comment %} <li class = "active">  </li> {% endcomment %}
+            {%else%}
+              <li> 
+                 <a href="?{{page.querystring}}">{{page}}</a>   
+              </li>
+            {%endifequal%}
+          {%else%}
+                  <li class="none"><a href="">...</a></li>
+          {%endif%}
+              
+        {% endfor %}
+        
+        <li>
+        {%if blog_pages.has_next%}
+            <a href="?page={{blog_pages.next_page_number}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            </a>
+        {%else%}
+              <span aria-hidden="true">&raquo;</span>
+        {%endif%}
+        </li>
+    </ul>
+    <p>
+      一共有{{blog_pages.paginator.count}}篇文章,
+      当前第{{blog_pages.number}}页,
+      共 {{blog_pages.paginator.num_pages}}页
+
+    </p>
+</div>

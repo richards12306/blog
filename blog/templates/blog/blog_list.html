@@ -1,0 +1,58 @@
+{% extends 'base/base.html' %}
+{%load static%}
+
+{#页面标题#}
+ {%block title %}
+  我的网站
+  {%endblock%}
+        
+
+
+ {%block content%}
+    <div class = "container">
+  <div class = "row">
+
+    
+     <div class = "col-sm-8">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">博客列表</div>
+          <div class="panel-body">
+           <h3>{{blog_type.tag_name}}</h3>
+
+            {%for blog in blog_pages.object_list%}
+
+              <h3><a href="{% url 'blog_detail' blog.pk %}">{{blog.title}}</a></h3>
+              <p class = "blog_info">类别:<a href="{%url 'blog_with_type' blog.tags.pk%}">  
+                        {{blog.tags}}</a><span>&nbsp;&nbsp;
+             
+              阅读量:({{blog.get_read_num}})<span>&nbsp;
+              
+              </p>
+              <p> 简介:{{blog.abstraction}}<span>&nbsp;&nbsp;</p>
+              <hr>
+              {%empty%}
+                  <p>暂时么有博客哦</p>
+              {% endfor%}
+              
+          </div>
+          </div>
+          {%include 'function/paginator.html'%}
+    </div>
+
+    <div class = "col-sm-4">
+      <div class="panel panel-default">
+          {%include 'function/type_list.html'%}
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+ {%endblock%}
+
+
+        
+
+

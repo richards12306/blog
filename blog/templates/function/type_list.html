@@ -1,0 +1,44 @@
+{% comment %} 需要 blog_type blog_date 两个参数  {% endcomment %}
+
+    <div class="panel-heading">
+    博客分类
+    </div>
+
+    <div class="panel-body">
+      <ul style = "list-style-type: none;">
+      {%for blog_type in blog_types%}
+        <li>
+        <a href="{%url 'blog_with_type' blog_type.pk%}">
+        {{blog_type.tag_name}} ({{blog_type.blog_count}})
+        </a>
+
+        </li>
+      {%empty%}
+        <li>暂无分类</li>
+      {%endfor%}
+      </ul>
+    </div>
+
+
+
+
+    <div class="panel-heading">
+    日期归档
+    </div>
+
+    <div class="panel-body">
+      <ul style = "list-style-type: none;">
+        {%for blog_date,blog_count in blog_dates.items%}
+        <li>
+        <a href="{%url "blog_with_date" blog_date.year blog_date.month %}">
+        {{blog_date|date:"Y-m"}} ({{blog_count}})
+        </a>
+        
+        </li>
+
+        {%endfor%}
+      </ul>
+    </div>
+
+
+
