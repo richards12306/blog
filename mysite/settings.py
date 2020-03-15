@@ -137,3 +137,11 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 ##自定义参数
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+#定义cache
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
+}

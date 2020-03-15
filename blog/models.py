@@ -5,7 +5,8 @@ import datetime
 from mdeditor.fields import MDTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db.models.fields import exceptions
-from read_statics.models import ReadNumExpandMethod
+from read_statics.models import ReadNumExpandMethod,ReadDetail
+from django.contrib.contenttypes.fields import GenericRelation
 # Create your models here.
 
 
@@ -25,6 +26,7 @@ class Blog(models.Model, ReadNumExpandMethod):
                                default=1)  #一对一外键，关联作者模型
     tags = models.ForeignKey(BlogTag, on_delete=models.DO_NOTHING)
     is_deleted = models.BooleanField(default=False)
+    read_details = GenericRelation(ReadDetail)
     abstraction = models.TextField(max_length=150, default="nothing left")
     last_update_time = models.DateTimeField(auto_now=True)  #更新日期
 

@@ -8,8 +8,8 @@
   {%endblock%}
 
   {% block header_extends%}
-  <link rel="stylesheet" href="{%static 'home.css'%}">
-
+  <link rel="stylesheet" href="{%static 'css/home.css'%}">
+  <script src="http://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
     
     {%endblock%}
         
@@ -24,7 +24,42 @@
 <h3>Welcome to my Blog, Please have a look</h3>
 
  <div id="container" ></div>
- <script src="http://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
+ {% comment %} 今天热门点击 {% endcomment %}
+ <div  class="hot-data">
+  <h3>今日热门</h3>
+ <ul style="list-style-type:none">
+  {%for hot_blog in today_hot_blogs%}
+
+  <li>
+  <a href="{% url 'blog_detail' hot_blog.content_object.pk%}">{{hot_blog.content_object.title}}  </a>({{hot_blog.read_num}})
+
+  {% comment %} <p>&nbsp;&nbsp;&nbsp;{{hot_blog.content_object.abstraction}}</p> {% endcomment %}
+  </li>
+  {%empty%}
+  <li class="active">今日无事</li>
+  {%endfor%}
+ </ul>
+ </div>
+
+
+  <div  class="hot-data">
+<h3>一周热门</h3>
+ <ul style="list-style-type:none" >
+  {%for hot_blog in week_hot_blogs%}
+
+    <li>
+    <a href="{% url 'blog_detail' hot_blog.id %}">{{ hot_blog.title }}</a>({{ hot_blog.read_num_sum }})
+    
+    {% comment %} <p>&nbsp;&nbsp;&nbsp;{{hot_blog.abstraction}} {{hot_blog}}</p> {% endcomment %}
+    </li>            
+        {% empty %}
+  <li class="active">太惨了吧？一周都没人看？</li>
+  {%endfor%}
+ </ul>
+  </div>
+
+
+ 
    <script>
         // 图表配置
         var options = {
